@@ -1,0 +1,46 @@
+{
+  "fontName": "fabric-icons",
+  "fontFamilyName": "FabricMDL2Icons",
+  "excludeGlyphs": false,
+  "excludeThirdPartyIcons": false,
+  "chunkSubsets": false,
+  "hashFontFileName": true,
+  "glyphs": [
+    {
+      "name": "Flow",
+      "unicode": "EF90"
+    },
+    {
+      "name": "ExcelDocument",
+      "unicode": "EF73"
+    },
+    {
+      "name": "SyncToPC",
+      "unicode": "EE6E"
+    },
+    {
+      "name": "CalculatorAddition",
+      "unicode": "E948"
+    },
+    {
+      "name": "Upload",
+      "unicode": "E898"
+    },
+    {
+      "name": "OpenFile",
+      "unicode": "E8E5"
+    },
+    {
+      "name": "ExcelLogo16",
+      "unicode": "F397"
+    },
+    {
+      "name": "FabricFolder",
+      "unicode": "F0A9"
+    },
+    {
+      "name": "ChevronDown",
+      "unicode": "E70D"
+    }
+  ]
+}
