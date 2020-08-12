@@ -1,3 +1,24 @@
+body {
+  font-family: sans-serif;
+}
+body h1 {
+  font-weight: extra light;
+  margin-left: 16px;
+}
+
+i {
+  margin-left: 8px;
+  margin-right: 8px;
+  color: lightcoral;
+}
+
+table thead {
+  border-bottom: 1px solid lightgray;
+}
+table thead th {
+  font-weight: lighter;
+}
+
 @media only screen and (max-width: 767px), (min-device-width: 768px) and (max-device-width: 1024px) {
   /* Force table to not be like tables anymore */
   table, thead, tbody, th, td, tr {
