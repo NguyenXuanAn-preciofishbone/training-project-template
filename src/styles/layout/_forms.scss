@@ -24,21 +24,29 @@ table{
 	}
 	
 	tr { border: 1px solid #ccc; }
-	
+
 	td { 
 		/* Behave  like a "row" */
-		border: none;
+        &:first-child {
+			background-color: gray;
+			text-align: right;
+  
+			&:before {
+			  text-align: left;
+			}
+		  }
+  
 		border-bottom: 1px solid #eee; 
 		position: relative;
-		padding-left: 50% !important; 
+		padding-left: 40% !important; 
 	}
 	
 	td:before { 
 		/* Now like a table header */
 		position: absolute;
 		/* Top/left values mimic padding */
-		top: 6px;
-		left: 6px;
+		top: 8px;
+		left: 8px;
 		width: 45%; 
 		padding-right: 10px; 
 		white-space: nowrap;
