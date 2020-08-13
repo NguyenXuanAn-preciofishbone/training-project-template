@@ -28,7 +28,7 @@ table{
 	td { 
 		/* Behave  like a "row" */
         &:first-child {
-			background-color: gray;
+			background-color: lightgrey;
 			text-align: right;
   
 			&:before {

@@ -45,7 +45,7 @@ table thead th {
     padding-left: 40% !important;
   }
   td:first-child {
-    background-color: gray;
+    background-color: lightgrey;
     text-align: right;
   }
   td:first-child:before {
