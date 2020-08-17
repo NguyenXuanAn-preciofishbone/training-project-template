@@ -95,9 +95,26 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-const renderGrid = () => {// TODO: implement code to Render grid
+var renderGrid = function () {// TODO: implement code to Render grid
 };
 
+function callAddForm() {
+  $('#form').modal('show');
+}
+
+function submit(e) {
+  e.preventDefault();
+  var tfType = $('#tfType').val(); // const tfName = $('#tfName').val();
+  // const tfModified = $('#tfModified').val();
+  // const tfModifiedBy = $('#tfModifiedBy').val();
+
+  console.log(tfType);
+}
+
+var btnSubmit = document.getElementById('btnSubmit');
+btnSubmit === null || btnSubmit === void 0 ? void 0 : btnSubmit.addEventListener('click', submit);
+var btnAdd = document.getElementById('btnAdd');
+btnAdd === null || btnAdd === void 0 ? void 0 : btnAdd.addEventListener('click', callAddForm);
 /* harmony default export */ __webpack_exports__["default"] = (renderGrid);
 
 /***/ }),
@@ -115,7 +132,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_grid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_grid */ "./src/scripts/components/_grid.ts");
 
 
-Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(() => {
+Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(function () {
   Object(_components_grid__WEBPACK_IMPORTED_MODULE_1__["default"])();
 });
 
@@ -130,7 +147,7 @@ Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(() => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-const ready = fn => {
+var ready = function (fn) {
   if (document.readyState !== 'loading') {
     fn();
   } else {

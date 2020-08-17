@@ -71,14 +71,16 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
+    "@types/jquery": "^3.5.1",
     "@typescript-eslint/eslint-plugin": "^3.7.1",
-    "bootstrap": "^4.5.0",
+    "bootstrap": "^4.5.2",
     "eslint-config-airbnb-typescript": "^9.0.0",
     "feather-icons": "^4.28.0",
     "jquery": "^3.5.1",
     "keen-slider": "^5.0.5",
     "lit-html": "^1.2.1",
     "popper.js": "^1.16.1",
-    "webpack-fix-style-only-entries": "^0.5.0"
+    "webpack-fix-style-only-entries": "^0.5.0",
+    "@types/bootstrap": "4.5.0"
   }
 }
