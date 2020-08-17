@@ -9928,10 +9928,18 @@ table thead i {
 }
 div.col-10 {
   text-align: left;
+  padding-left: 48px;
+  padding-right: 48px;
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 
 div.col-2 {
   text-align: right;
+  padding-left: 48px;
+  padding-right: 48px;
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 
 .container {

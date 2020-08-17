@@ -1,17 +1,12 @@
-import { BaseModel } from "../Model/_base-model";
+import { BaseModel } from '../Model/_base-model';
+import { dummy_data } from '../data/_mockup-data';
 
-export function Save(basemodel: BaseModel){
+export function saveData(basemodel: BaseModel) {}
 
+export function loadData() {
+  return dummy_data;
 }
 
-export function Load(){
+export function updateData(basemodel: BaseModel) {}
 
-}
-
-export function Update(basemodel: BaseModel){
-
-}
-
-export function Delete(basemodel: BaseModel){
-
-}
+export function deleteData(basemodel: BaseModel) {}
