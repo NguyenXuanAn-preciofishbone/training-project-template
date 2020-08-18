@@ -99,7 +99,8 @@ __webpack_require__.r(__webpack_exports__);
 var BaseModel =
 /** @class */
 function () {
-  function BaseModel(type, name, modified, modifiedBy, path) {
+  function BaseModel(id, type, name, modified, modifiedBy, path) {
+    this.id = id;
     this.fileType = type;
     this.fileName = name;
     this.dateModified = modified;
@@ -128,7 +129,38 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var renderGrid = function () {// TODO: implement code to Render grid
+
+
+var renderGrid = function (filePath) {
+  // TODO: implement code to Render grid
+  // file path in header
+  var headerFilePath = document.getElementById('headerFilePath');
+  headerFilePath.innerHTML = filePath; // table
+
+  var data = Object(_service_database_service__WEBPACK_IMPORTED_MODULE_0__["loadData"])(filePath);
+  var table = document.getElementById('table');
+  data.forEach(function (element) {
+    if (element.fileType == "folder") {
+      var tableRow = "\n      <tr class=\"folderRecord\" data-name=\"" + element.fileName + "\">\n        <td class=\"text-right\">\n          <i class=\"ms-Icon ms-Icon--FabricFolder\"></i>\n        </td>\n        <td>" + element.fileName + "</td>\n        <td>" + element.dateModified + "</td>\n        <td>" + element.modifiedBy + "</td>\n        <td>\n          <button>update</button>\n          <button>delete</button>\n        </td>\n      </tr>\n      ";
+      table.innerHTML += tableRow;
+    } else {
+      var tableRow = "\n      <tr>\n        <td class=\"text-right\">\n          <i class=\"ms-Icon ms-Icon--OpenFile\"></i>\n        </td>\n        <td>" + element.fileName + "</td>\n        <td>" + element.dateModified + "</td>\n        <td>" + element.modifiedBy + "</td>\n        <td>\n          <button class=\"updateButton\" data-id=\"" + element.id + "\">update</button>\n          <button class=\"deleteButton\" data-id=\"" + element.id + "\">delete</button>\n        </td>\n      </tr>\n      ";
+      table.innerHTML += tableRow;
+    }
+  });
+  $('.updateButton').click(function () {
+    console.log($(this).data('id'));
+  });
+  $('.deleteButton').click(function () {
+    Object(_service_database_service__WEBPACK_IMPORTED_MODULE_0__["deleteData"])($(this).data('id'));
+  });
+  console.log($('.folderrecord'));
+  $('.folderRecord').click(function () {
+    sessionStorage.filePath += $(this).data('name') + "/";
+    console.log('folder clicked');
+    console.log(sessionStorage.filePath);
+    location.reload();
+  });
 };
 
 function validateInput(type, name, modified, modifiedBy) {
@@ -145,16 +177,23 @@ function callAddForm() {
   $('#form').modal('show');
 }
 
-function submit(e) {
-  e.preventDefault();
-  var path = ".";
+function submit() {
+  var path = sessionStorage.filePath;
   var tfType = $('#tfType').val();
   var tfName = $('#tfName').val();
   var tfModified = $('#tfModified').val();
   var tfModifiedBy = $('#tfModifiedBy').val();
 
+  if (!localStorage.id) {
+    localStorage.id = 0;
+  } else {
+    localStorage.id += 1;
+  }
+
+  var id = localStorage.id;
+
   if (validateInput(tfType, tfName, tfModified, tfModifiedBy)) {
-    var created = new _Model_base_model__WEBPACK_IMPORTED_MODULE_1__["BaseModel"](tfType, tfName, tfModified, tfModifiedBy, path);
+    var created = new _Model_base_model__WEBPACK_IMPORTED_MODULE_1__["BaseModel"](id, tfType, tfName, tfModified, tfModifiedBy, path);
     Object(_service_database_service__WEBPACK_IMPORTED_MODULE_0__["saveData"])(created);
   }
 }
@@ -181,7 +220,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(function () {
-  Object(_components_grid__WEBPACK_IMPORTED_MODULE_1__["default"])();
+  if (!sessionStorage.filePath) {
+    sessionStorage.filePath = './';
+  }
+
+  Object(_components_grid__WEBPACK_IMPORTED_MODULE_1__["default"])(sessionStorage.filePath);
 });
 
 /***/ }),
@@ -210,7 +253,7 @@ function saveData(basemodel) {
     localStorage.data = JSON.stringify(dataArray);
   }
 
-  console.log(localStorage.data);
+  console.log('Success saved data to local storage');
 }
 function loadData(path) {
   var allData = JSON.parse(localStorage.getItem('data') || '{}');
@@ -220,17 +263,19 @@ function loadData(path) {
   });
   return filteredData;
 }
-function deleteData(basemodel) {
+function deleteData(id) {
   var allData = JSON.parse(localStorage.getItem('data') || '{}');
   var filteredData = [];
   allData.forEach(function (element) {
-    if (element != basemodel) filteredData.push(element);
+    if (element.id != id) filteredData.push(element);
   });
   localStorage.data = JSON.stringify(filteredData);
+  location.reload();
 }
-function updateData(oldRecord, updatedRecord) {
-  deleteData(oldRecord);
+function updateData(id, updatedRecord) {
+  deleteData(id);
   saveData(updatedRecord);
+  location.reload();
 }
 
 /***/ }),

@@ -2,5 +2,8 @@ import ready from '../utilities/_helper';
 import renderGrid from '../components/_grid';
 
 ready(() => {
-  renderGrid();
+  if (!sessionStorage.filePath) {
+    sessionStorage.filePath = './';
+  }
+  renderGrid(sessionStorage.filePath);
 });

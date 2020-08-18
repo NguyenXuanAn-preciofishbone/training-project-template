@@ -13,7 +13,7 @@ export function saveData(basemodel: BaseModel) {
     dataArray[0] = basemodel;
     localStorage.data = JSON.stringify(dataArray);
   }
-  console.log(localStorage.data);
+  console.log('Success saved data to local storage');
 }
 
 export function loadData(path: string) {
@@ -25,19 +25,18 @@ export function loadData(path: string) {
   return filteredData;
 }
 
-export function deleteData(basemodel: BaseModel) {
+export function deleteData(id: Int16Array) {
   const allData = JSON.parse(localStorage.getItem('data') || '{}');
   const filteredData: BaseModel[] = [];
   allData.forEach((element: BaseModel) => {
-    if (element != basemodel) filteredData.push(element);
+    if (element.id != id) filteredData.push(element);
   });
   localStorage.data = JSON.stringify(filteredData);
+  location.reload();
 }
 
-export function updateData(
-  oldRecord: BaseModel,
-  updatedRecord: BaseModel,
-) {
-  deleteData(oldRecord);
+export function updateData(id: Int16Array, updatedRecord: BaseModel) {
+  deleteData(id);
   saveData(updatedRecord);
+  location.reload();
 }
