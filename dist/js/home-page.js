@@ -100,11 +100,11 @@ var BaseModel =
 /** @class */
 function () {
   function BaseModel(type, name, modified, modifiedBy, path) {
-    this.type = type;
-    this.name = name;
-    this.modified = modified;
+    this.fileType = type;
+    this.fileName = name;
+    this.dateModified = modified;
     this.modifiedBy = modifiedBy;
-    this.path = path;
+    this.filePath = path;
   }
 
   return BaseModel;
@@ -135,10 +135,10 @@ function validateInput(type, name, modified, modifiedBy) {
   if (type === '' || name === '' || modified === '' || modifiedBy === '') {
     console.log('Please input all required field');
     return false;
-  } else {
-    console.log('Input validated');
-    return true;
   }
+
+  console.log('Input validated');
+  return true;
 }
 
 function callAddForm() {
@@ -167,26 +167,6 @@ btnAdd === null || btnAdd === void 0 ? void 0 : btnAdd.addEventListener('click',
 
 /***/ }),
 
-/***/ "./src/scripts/data/_mockup-data.ts":
-/*!******************************************!*\
-  !*** ./src/scripts/data/_mockup-data.ts ***!
-  \******************************************/
-/*! exports provided: dummy_data */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dummy_data", function() { return dummy_data; });
-var dummy_data = [{
-  type: 'file',
-  name: 'test.xlsx',
-  modified: '1/1/2000',
-  modifiedBy: 'Nguyen Xuan An',
-  path: '.'
-}];
-
-/***/ }),
-
 /***/ "./src/scripts/pages/home-page.ts":
 /*!****************************************!*\
   !*** ./src/scripts/pages/home-page.ts ***!
@@ -210,23 +190,48 @@ Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(function () {
 /*!**************************************************!*\
   !*** ./src/scripts/service/_database-service.ts ***!
   \**************************************************/
-/*! exports provided: saveData, loadData, updateData, deleteData */
+/*! exports provided: saveData, loadData, deleteData, updateData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveData", function() { return saveData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadData", function() { return loadData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateData", function() { return updateData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteData", function() { return deleteData; });
-/* harmony import */ var _data_mockup_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../data/_mockup-data */ "./src/scripts/data/_mockup-data.ts");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateData", function() { return updateData; });
+function saveData(basemodel) {
+  if (localStorage.data) {
+    var currentData = JSON.parse(localStorage.getItem('data') || '{}');
+    currentData.push(basemodel);
+    localStorage.data = JSON.stringify(currentData);
+  } else {
+    var dataArray = [];
+    dataArray[0] = basemodel;
+    localStorage.data = JSON.stringify(dataArray);
+  }
 
-function saveData(basemodel) {}
-function loadData() {
-  return _data_mockup_data__WEBPACK_IMPORTED_MODULE_0__["dummy_data"];
+  console.log(localStorage.data);
 }
-function updateData(basemodel) {}
-function deleteData(basemodel) {}
+function loadData(path) {
+  var allData = JSON.parse(localStorage.getItem('data') || '{}');
+  var filteredData = [];
+  allData.forEach(function (element) {
+    if (element.filePath === path) filteredData.push(element);
+  });
+  return filteredData;
+}
+function deleteData(basemodel) {
+  var allData = JSON.parse(localStorage.getItem('data') || '{}');
+  var filteredData = [];
+  allData.forEach(function (element) {
+    if (element != basemodel) filteredData.push(element);
+  });
+  localStorage.data = JSON.stringify(filteredData);
+}
+function updateData(oldRecord, updatedRecord) {
+  deleteData(oldRecord);
+  saveData(updatedRecord);
+}
 
 /***/ }),
 

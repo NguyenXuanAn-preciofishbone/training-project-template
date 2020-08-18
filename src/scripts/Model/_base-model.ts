@@ -1,15 +1,15 @@
-export class  BaseModel{
-    private type: string;
-    private name: string;
-    private modified: string;
+export class BaseModel{
+    private fileType: string;
+    private fileName: string;
+    private dateModified: string;
     private modifiedBy: string;
-    private path: string;
+    filePath: string;
 
     constructor(type: string, name: string, modified: string, modifiedBy: string, path: string){
-        this.type = type;
-        this.name = name;
-        this.modified = modified;
+        this.fileType = type;
+        this.fileName = name;
+        this.dateModified = modified;
         this.modifiedBy = modifiedBy;
-        this.path = path;
+        this.filePath = path;
     }
 }

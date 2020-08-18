@@ -1,12 +1,16 @@
-import {saveData} from '../service/_database-service'
-import { type } from 'jquery';
+import { saveData } from '../service/_database-service';
 import { BaseModel } from '../Model/_base-model';
 
 const renderGrid = () => {
   // TODO: implement code to Render grid
 };
 
-function validateInput(type: string, name: string, modified: string, modifiedBy: string): boolean{
+function validateInput(
+  type: string,
+  name: string,
+  modified: string,
+  modifiedBy: string,
+): boolean {
   if (
     type === '' ||
     name === '' ||
@@ -15,10 +19,9 @@ function validateInput(type: string, name: string, modified: string, modifiedBy:
   ) {
     console.log('Please input all required field');
     return false;
-  } else {
-    console.log('Input validated');
-    return true;
   }
+  console.log('Input validated');
+  return true;
 }
 
 function callAddForm(): void {
@@ -27,18 +30,16 @@ function callAddForm(): void {
 
 function submit(e: any): void {
   e.preventDefault();
-  var path: string =".";
+  const path: string =".";
   const tfType = <string>$('#tfType').val();
   const tfName = <string>$('#tfName').val();
   const tfModified = <string>$('#tfModified').val();
   const tfModifiedBy = <string>$('#tfModifiedBy').val();
   if (validateInput(tfType, tfName, tfModified, tfModifiedBy)) {
-    var created: BaseModel = new BaseModel(tfType,tfName, tfModified, tfModifiedBy, path);
+    const created: BaseModel = new BaseModel(tfType,tfName, tfModified, tfModifiedBy, path);
     saveData(created);
   }
 }
-
-
 
 const btnSubmit = document.getElementById('btnSubmit');
 btnSubmit?.addEventListener('click', submit);

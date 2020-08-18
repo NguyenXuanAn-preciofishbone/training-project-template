@@ -1,4 +1,4 @@
-export const dummy_data = [
+export const DummyData = [
   {
     type: 'file',
     name: 'test.xlsx',
