@@ -1,4 +1,4 @@
-import { BaseModel } from '../Model/_base-model';
+import { BaseModel } from '../model/_base-model';
 import { DummyData } from '../data/_mockup-data';
 
 export function saveData(basemodel: BaseModel) {
@@ -32,7 +32,6 @@ export function deleteData(id: Int16Array) {
     if (element.id != id) filteredData.push(element);
   });
   localStorage.data = JSON.stringify(filteredData);
-  location.reload();
 }
 
 export function updateData(id: Int16Array, updatedRecord: BaseModel) {

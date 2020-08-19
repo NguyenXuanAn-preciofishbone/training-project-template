@@ -1,7 +1,7 @@
 import { saveData } from '../service/_database-service';
 import { loadData } from '../service/_database-service';
-import { deleteData} from '../service/_database-service';
-import { BaseModel } from '../Model/_base-model';
+import { deleteData } from '../service/_database-service';
+import { BaseModel } from '../model/_base-model';
 
 const renderGrid = (filePath: string) => {
   // TODO: implement code to Render grid
@@ -24,8 +24,8 @@ const renderGrid = (filePath: string) => {
         <td>${element.dateModified}</td>
         <td>${element.modifiedBy}</td>
         <td>
-          <button>update</button>
-          <button>delete</button>
+          <button class="updateButton" data-id="${element.id}">update</button>
+          <button class="deleteButton" data-id="${element.id}">delete</button>
         </td>
       </tr>
       `;
@@ -49,23 +49,23 @@ const renderGrid = (filePath: string) => {
     }
   })
 
-  $('.updateButton').click(function(){
-    console.log($(this).data('id'));
-  })
-
-  $('.deleteButton').click(function(){
+  $('.updateButton').click(function () {
+    $('#form').modal('show');
     deleteData($(this).data('id'));
   })
 
-  console.log($('.folderrecord'))
+  $('.deleteButton').click(function () {
+    deleteData($(this).data('id'));
+    location.reload();
+  })
 
-  $('.folderRecord').click(function(){
-    sessionStorage.filePath += $(this).data('name')+"/";
+  $('.folderRecord').click(function () {
+    sessionStorage.filePath += $(this).data('name') + "/";
     console.log('folder clicked');
     console.log(sessionStorage.filePath);
     location.reload();
   })
-  
+
 };
 
 function validateInput(
@@ -109,10 +109,31 @@ function submit(): void {
   }
 }
 
+function pathBack(){
+  if (sessionStorage.filePath != "./"){
+    let filePath: string = sessionStorage.filePath;
+    let splited: string[] = filePath.split("/");
+    let newFilePath: string="";
+    for (let i=0; i<splited.length-2; i++){
+      newFilePath+= splited[i];
+      newFilePath+="/";
+    }
+    sessionStorage.filePath = newFilePath;
+    console.log(sessionStorage.filePath);
+
+  } else {
+    console.log("At root");
+  }
+  location.reload();
+}
+
 const btnSubmit = document.getElementById('btnSubmit');
 btnSubmit?.addEventListener('click', submit);
 
 const btnAdd = document.getElementById('btnAdd');
 btnAdd?.addEventListener('click', callAddForm);
+
+const btnBack = document.getElementById('btnBack');
+btnBack?.addEventListener('click', pathBack);
 
 export default renderGrid;

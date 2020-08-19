@@ -86,35 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/scripts/Model/_base-model.ts":
-/*!******************************************!*\
-  !*** ./src/scripts/Model/_base-model.ts ***!
-  \******************************************/
-/*! exports provided: BaseModel */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BaseModel", function() { return BaseModel; });
-var BaseModel =
-/** @class */
-function () {
-  function BaseModel(id, type, name, modified, modifiedBy, path) {
-    this.id = id;
-    this.fileType = type;
-    this.fileName = name;
-    this.dateModified = modified;
-    this.modifiedBy = modifiedBy;
-    this.filePath = path;
-  }
-
-  return BaseModel;
-}();
-
-
-
-/***/ }),
-
 /***/ "./src/scripts/components/_grid.ts":
 /*!*****************************************!*\
   !*** ./src/scripts/components/_grid.ts ***!
@@ -125,7 +96,7 @@ function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _service_database_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../service/_database-service */ "./src/scripts/service/_database-service.ts");
-/* harmony import */ var _Model_base_model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Model/_base-model */ "./src/scripts/Model/_base-model.ts");
+/* harmony import */ var _model_base_model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../model/_base-model */ "./src/scripts/model/_base-model.ts");
 
 
 
@@ -141,7 +112,7 @@ var renderGrid = function (filePath) {
   var table = document.getElementById('table');
   data.forEach(function (element) {
     if (element.fileType == "folder") {
-      var tableRow = "\n      <tr class=\"folderRecord\" data-name=\"" + element.fileName + "\">\n        <td class=\"text-right\">\n          <i class=\"ms-Icon ms-Icon--FabricFolder\"></i>\n        </td>\n        <td>" + element.fileName + "</td>\n        <td>" + element.dateModified + "</td>\n        <td>" + element.modifiedBy + "</td>\n        <td>\n          <button>update</button>\n          <button>delete</button>\n        </td>\n      </tr>\n      ";
+      var tableRow = "\n      <tr class=\"folderRecord\" data-name=\"" + element.fileName + "\">\n        <td class=\"text-right\">\n          <i class=\"ms-Icon ms-Icon--FabricFolder\"></i>\n        </td>\n        <td>" + element.fileName + "</td>\n        <td>" + element.dateModified + "</td>\n        <td>" + element.modifiedBy + "</td>\n        <td>\n          <button class=\"updateButton\" data-id=\"" + element.id + "\">update</button>\n          <button class=\"deleteButton\" data-id=\"" + element.id + "\">delete</button>\n        </td>\n      </tr>\n      ";
       table.innerHTML += tableRow;
     } else {
       var tableRow = "\n      <tr>\n        <td class=\"text-right\">\n          <i class=\"ms-Icon ms-Icon--OpenFile\"></i>\n        </td>\n        <td>" + element.fileName + "</td>\n        <td>" + element.dateModified + "</td>\n        <td>" + element.modifiedBy + "</td>\n        <td>\n          <button class=\"updateButton\" data-id=\"" + element.id + "\">update</button>\n          <button class=\"deleteButton\" data-id=\"" + element.id + "\">delete</button>\n        </td>\n      </tr>\n      ";
@@ -149,12 +120,13 @@ var renderGrid = function (filePath) {
     }
   });
   $('.updateButton').click(function () {
-    console.log($(this).data('id'));
+    $('#form').modal('show');
+    Object(_service_database_service__WEBPACK_IMPORTED_MODULE_0__["deleteData"])($(this).data('id'));
   });
   $('.deleteButton').click(function () {
     Object(_service_database_service__WEBPACK_IMPORTED_MODULE_0__["deleteData"])($(this).data('id'));
+    location.reload();
   });
-  console.log($('.folderrecord'));
   $('.folderRecord').click(function () {
     sessionStorage.filePath += $(this).data('name') + "/";
     console.log('folder clicked');
@@ -193,16 +165,67 @@ function submit() {
   var id = localStorage.id;
 
   if (validateInput(tfType, tfName, tfModified, tfModifiedBy)) {
-    var created = new _Model_base_model__WEBPACK_IMPORTED_MODULE_1__["BaseModel"](id, tfType, tfName, tfModified, tfModifiedBy, path);
+    var created = new _model_base_model__WEBPACK_IMPORTED_MODULE_1__["BaseModel"](id, tfType, tfName, tfModified, tfModifiedBy, path);
     Object(_service_database_service__WEBPACK_IMPORTED_MODULE_0__["saveData"])(created);
   }
+}
+
+function pathBack() {
+  if (sessionStorage.filePath != "./") {
+    var filePath = sessionStorage.filePath;
+    var splited = filePath.split("/");
+    var newFilePath = "";
+
+    for (var i = 0; i < splited.length - 2; i++) {
+      newFilePath += splited[i];
+      newFilePath += "/";
+    }
+
+    sessionStorage.filePath = newFilePath;
+    console.log(sessionStorage.filePath);
+  } else {
+    console.log("At root");
+  }
+
+  location.reload();
 }
 
 var btnSubmit = document.getElementById('btnSubmit');
 btnSubmit === null || btnSubmit === void 0 ? void 0 : btnSubmit.addEventListener('click', submit);
 var btnAdd = document.getElementById('btnAdd');
 btnAdd === null || btnAdd === void 0 ? void 0 : btnAdd.addEventListener('click', callAddForm);
+var btnBack = document.getElementById('btnBack');
+btnBack === null || btnBack === void 0 ? void 0 : btnBack.addEventListener('click', pathBack);
 /* harmony default export */ __webpack_exports__["default"] = (renderGrid);
+
+/***/ }),
+
+/***/ "./src/scripts/model/_base-model.ts":
+/*!******************************************!*\
+  !*** ./src/scripts/model/_base-model.ts ***!
+  \******************************************/
+/*! exports provided: BaseModel */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BaseModel", function() { return BaseModel; });
+var BaseModel =
+/** @class */
+function () {
+  function BaseModel(id, type, name, modified, modifiedBy, path) {
+    this.id = id;
+    this.fileType = type;
+    this.fileName = name;
+    this.dateModified = modified;
+    this.modifiedBy = modifiedBy;
+    this.filePath = path;
+  }
+
+  return BaseModel;
+}();
+
+
 
 /***/ }),
 
@@ -270,7 +293,6 @@ function deleteData(id) {
     if (element.id != id) filteredData.push(element);
   });
   localStorage.data = JSON.stringify(filteredData);
-  location.reload();
 }
 function updateData(id, updatedRecord) {
   deleteData(id);
