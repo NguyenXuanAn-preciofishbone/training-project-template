@@ -49,17 +49,18 @@ const renderGrid = (filePath: string) => {
     }
   })
 
-  $('.updateButton').click(function () {
+  $('.updateButton').click(function (event) {
     $('#form').modal('show');
     deleteData($(this).data('id'));
   })
 
-  $('.deleteButton').click(function () {
+  $('.deleteButton').click(function (event) {
     deleteData($(this).data('id'));
+    event.stopPropagation();
     location.reload();
   })
 
-  $('.folderRecord').click(function () {
+  $('.folderRecord').click(function (event) {
     sessionStorage.filePath += $(this).data('name') + "/";
     console.log('folder clicked');
     console.log(sessionStorage.filePath);

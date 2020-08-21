@@ -119,15 +119,16 @@ var renderGrid = function (filePath) {
       table.innerHTML += tableRow;
     }
   });
-  $('.updateButton').click(function () {
+  $('.updateButton').click(function (event) {
     $('#form').modal('show');
     Object(_service_database_service__WEBPACK_IMPORTED_MODULE_0__["deleteData"])($(this).data('id'));
   });
-  $('.deleteButton').click(function () {
+  $('.deleteButton').click(function (event) {
     Object(_service_database_service__WEBPACK_IMPORTED_MODULE_0__["deleteData"])($(this).data('id'));
+    event.stopPropagation();
     location.reload();
   });
-  $('.folderRecord').click(function () {
+  $('.folderRecord').click(function (event) {
     sessionStorage.filePath += $(this).data('name') + "/";
     console.log('folder clicked');
     console.log(sessionStorage.filePath);
