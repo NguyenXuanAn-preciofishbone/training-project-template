@@ -67,7 +67,10 @@ const renderGrid = (filePath: string) => {
     location.reload();
   })
 
-};
+  $('#tfType').change(function (event) {
+    console.log('type changed');
+  })
+}
 
 function validateInput(
   type: string,
@@ -86,6 +89,10 @@ function validateInput(
   }
   console.log('Input validated');
   return true;
+}
+
+function optionSelected(){
+  console.log("hello world");
 }
 
 function callAddForm(): void {
@@ -136,5 +143,7 @@ btnAdd?.addEventListener('click', callAddForm);
 
 const btnBack = document.getElementById('btnBack');
 btnBack?.addEventListener('click', pathBack);
+
+
 
 export default renderGrid;

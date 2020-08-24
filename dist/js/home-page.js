@@ -134,6 +134,9 @@ var renderGrid = function (filePath) {
     console.log(sessionStorage.filePath);
     location.reload();
   });
+  $('#tfType').change(function (event) {
+    console.log('type changed');
+  });
 };
 
 function validateInput(type, name, modified, modifiedBy) {
@@ -144,6 +147,10 @@ function validateInput(type, name, modified, modifiedBy) {
 
   console.log('Input validated');
   return true;
+}
+
+function optionSelected() {
+  console.log("hello world");
 }
 
 function callAddForm() {
