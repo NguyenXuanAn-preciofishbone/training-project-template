@@ -1,15 +1,15 @@
 export class BaseModel {
   id: Int16Array;
 
-  fileType: string;
+  type: string;
 
-  fileName: string;
+  name: string;
 
   dateModified: string;
 
   modifiedBy: string;
 
-  filePath: string;
+  path: string;
 
   constructor(
     id: Int16Array,
@@ -20,10 +20,10 @@ export class BaseModel {
     path: string,
   ) {
     this.id = id;
-    this.fileType = type;
-    this.fileName = name;
+    this.type = type;
+    this.name = name;
     this.dateModified = modified;
     this.modifiedBy = modifiedBy;
-    this.filePath = path;
+    this.path = path;
   }
 }

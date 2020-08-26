@@ -1,6 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src\\scripts",
+    "\\src\\scripts\\components",
+    "\\src\\scripts\\model",
+    "\\src\\scripts\\pages",
+    "\\src\\scripts\\service",
+    "\\src\\scripts\\utilities"
   ],
   "PreviewInSolutionExplorer": false
 }

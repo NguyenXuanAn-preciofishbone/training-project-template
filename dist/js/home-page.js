@@ -101,21 +101,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-var renderGrid = function (filePath) {
+var renderGrid = function (data) {
   // TODO: implement code to Render grid
-  // file path in header
-  var headerFilePath = document.getElementById('headerFilePath');
-  headerFilePath.innerHTML = filePath; // table
-
-  var data = Object(_service_database_service__WEBPACK_IMPORTED_MODULE_0__["loadData"])(filePath);
   var table = document.getElementById('table');
   data.forEach(function (element) {
-    if (element.fileType == "folder") {
-      var tableRow = "\n      <tr class=\"folderRecord\" data-name=\"" + element.fileName + "\">\n        <td class=\"text-right\">\n          <i class=\"ms-Icon ms-Icon--FabricFolder\"></i>\n        </td>\n        <td>" + element.fileName + "</td>\n        <td>" + element.dateModified + "</td>\n        <td>" + element.modifiedBy + "</td>\n        <td>\n          <button class=\"updateButton\" data-id=\"" + element.id + "\">update</button>\n          <button class=\"deleteButton\" data-id=\"" + element.id + "\">delete</button>\n        </td>\n      </tr>\n      ";
+    if (element.type == "folder") {
+      var tableRow = "\n            <tr class=\"folderRecord\" data-name=\"" + element.name + "\">\n                <td class=\"text-right\">\n                    <i class=\"ms-Icon ms-Icon--FabricFolder\"></i>\n                </td>\n                <td>" + element.name + "</td>\n                <td>" + element.dateModified + "</td>\n                <td>" + element.modifiedBy + "</td>\n                <td>\n                    <button class=\"updateButton\" data-id=\"" + element.id + "\">update</button>\n                    <button class=\"deleteButton\" data-id=\"" + element.id + "\">delete</button>\n                </td>\n            </tr>\n            ";
       table.innerHTML += tableRow;
     } else {
-      var tableRow = "\n      <tr>\n        <td class=\"text-right\">\n          <i class=\"ms-Icon ms-Icon--OpenFile\"></i>\n        </td>\n        <td>" + element.fileName + "</td>\n        <td>" + element.dateModified + "</td>\n        <td>" + element.modifiedBy + "</td>\n        <td>\n          <button class=\"updateButton\" data-id=\"" + element.id + "\">update</button>\n          <button class=\"deleteButton\" data-id=\"" + element.id + "\">delete</button>\n        </td>\n      </tr>\n      ";
+      var tableRow = "\n            <tr>\n                <td class=\"text-right\">\n                    <i class=\"ms-Icon ms-Icon--OpenFile\"></i>\n                </td>\n                <td>" + element.name + "</td>\n                <td>" + element.dateModified + "</td>\n                <td>" + element.modifiedBy + "</td>\n                <td>\n                    <button class=\"updateButton\" data-id=\"" + element.id + "\">update</button>\n                    <button class=\"deleteButton\" data-id=\"" + element.id + "\">delete</button>\n                </td>\n            </tr>\n        ";
       table.innerHTML += tableRow;
     }
   });
@@ -223,11 +217,11 @@ var BaseModel =
 function () {
   function BaseModel(id, type, name, modified, modifiedBy, path) {
     this.id = id;
-    this.fileType = type;
-    this.fileName = name;
+    this.type = type;
+    this.name = name;
     this.dateModified = modified;
     this.modifiedBy = modifiedBy;
-    this.filePath = path;
+    this.path = path;
   }
 
   return BaseModel;
@@ -248,6 +242,8 @@ function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utilities_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utilities/_helper */ "./src/scripts/utilities/_helper.ts");
 /* harmony import */ var _components_grid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_grid */ "./src/scripts/components/_grid.ts");
+/* harmony import */ var _service_database_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../service/_database-service */ "./src/scripts/service/_database-service.ts");
+
 
 
 Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(function () {
@@ -255,7 +251,12 @@ Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(function () {
     sessionStorage.filePath = './';
   }
 
-  Object(_components_grid__WEBPACK_IMPORTED_MODULE_1__["default"])(sessionStorage.filePath);
+  var filePath = sessionStorage.filePath;
+  var headerFilePath = document.getElementById('headerFilePath');
+  headerFilePath.innerHTML = filePath;
+  var data = Object(_service_database_service__WEBPACK_IMPORTED_MODULE_2__["loadData"])().then(function (data) {
+    Object(_components_grid__WEBPACK_IMPORTED_MODULE_1__["default"])(data);
+  });
 });
 
 /***/ }),
@@ -286,13 +287,14 @@ function saveData(basemodel) {
 
   console.log('Success saved data to local storage');
 }
-function loadData(path) {
-  var allData = JSON.parse(localStorage.getItem('data') || '{}');
-  var filteredData = [];
-  allData.forEach(function (element) {
-    if (element.filePath === path) filteredData.push(element);
+function loadData() {
+  return new Promise(function (resolve, reject) {
+    fetch("https://localhost:44347/api/files").then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      resolve(data);
+    });
   });
-  return filteredData;
 }
 function deleteData(id) {
   var allData = JSON.parse(localStorage.getItem('data') || '{}');
