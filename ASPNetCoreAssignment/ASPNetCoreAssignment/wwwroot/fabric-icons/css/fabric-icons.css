@@ -1,0 +1,27 @@
+/*
+  Your use of the content in the files referenced here is subject to the terms of the license at https://aka.ms/fabric-assets-license
+*/
+@font-face {
+  font-family: 'FabricMDL2Icons';
+  src: url('../fonts/fabric-icons-3f43a6ac.woff') format('woff');
+}
+
+.ms-Icon {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-family: 'FabricMDL2Icons';
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+}
+
+.ms-Icon--Flow:before { content: "\EF90"; }
+.ms-Icon--ExcelDocument:before { content: "\EF73"; }
+.ms-Icon--SyncToPC:before { content: "\EE6E"; }
+.ms-Icon--CalculatorAddition:before { content: "\E948"; }
+.ms-Icon--Upload:before { content: "\E898"; }
+.ms-Icon--OpenFile:before { content: "\E8E5"; }
+.ms-Icon--ExcelLogo16:before { content: "\F397"; }
+.ms-Icon--FabricFolder:before { content: "\F0A9"; }
+.ms-Icon--ChevronDown:before { content: "\E70D"; }

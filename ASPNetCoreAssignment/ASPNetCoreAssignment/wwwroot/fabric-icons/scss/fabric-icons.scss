@@ -1,0 +1,41 @@
+/*
+  Your use of the content in the files referenced here is subject to the terms of the license at https://aka.ms/fabric-assets-license
+*/
+@font-face {
+  font-family: 'FabricMDL2Icons';
+  src: url('../fonts/fabric-icons-3f43a6ac.woff') format('woff');
+}
+
+.ms-Icon {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-family: 'FabricMDL2Icons';
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+}
+
+// Mixins
+@mixin ms-Icon--Flow { content: "\EF90"; }
+@mixin ms-Icon--ExcelDocument { content: "\EF73"; }
+@mixin ms-Icon--SyncToPC { content: "\EE6E"; }
+@mixin ms-Icon--CalculatorAddition { content: "\E948"; }
+@mixin ms-Icon--Upload { content: "\E898"; }
+@mixin ms-Icon--OpenFile { content: "\E8E5"; }
+@mixin ms-Icon--ExcelLogo16 { content: "\F397"; }
+@mixin ms-Icon--FabricFolder { content: "\F0A9"; }
+@mixin ms-Icon--ChevronDown { content: "\E70D"; }
+
+
+// Classes
+.ms-Icon--Flow:before { @include ms-Icon--Flow }
+.ms-Icon--ExcelDocument:before { @include ms-Icon--ExcelDocument }
+.ms-Icon--SyncToPC:before { @include ms-Icon--SyncToPC }
+.ms-Icon--CalculatorAddition:before { @include ms-Icon--CalculatorAddition }
+.ms-Icon--Upload:before { @include ms-Icon--Upload }
+.ms-Icon--OpenFile:before { @include ms-Icon--OpenFile }
+.ms-Icon--ExcelLogo16:before { @include ms-Icon--ExcelLogo16 }
+.ms-Icon--FabricFolder:before { @include ms-Icon--FabricFolder }
+.ms-Icon--ChevronDown:before { @include ms-Icon--ChevronDown }
+
