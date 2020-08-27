@@ -1,24 +1,26 @@
 import { BaseModel } from '../model/_base-model';
-import { DummyData } from '../data/_mockup-data';
+import { UPLOAD_PATH } from '../utilities/_route'
+import { GET_PATH } from '../utilities/_route'
 
-export function saveData(basemodel: BaseModel) {
-    if (localStorage.data) {
-        const currentData = JSON.parse(
-            localStorage.getItem('data') || '{}',
-        );
-        currentData.push(basemodel);
-        localStorage.data = JSON.stringify(currentData);
-    } else {
-        const dataArray = [];
-        dataArray[0] = basemodel;
-        localStorage.data = JSON.stringify(dataArray);
-    }
-    console.log('Success saved data to local storage');
+export function saveData(currentFormData: FormData) {
+    console.log(currentFormData);
+    console.log("at save data");
+
+    $.ajax({
+        url: UPLOAD_PATH,
+        type: 'POST',
+        data: currentFormData,
+        processData: false,
+        contentType: false,
+        success: function (result) {
+            console.log(result);
+        }
+    });
 }
 
 export function loadData(): any {
     return new Promise(function (resolve, reject) {
-        fetch("https://localhost:44347/api/files")
+        fetch(GET_PATH)
             .then(response => {
                 return response.json();
             })
@@ -28,17 +30,10 @@ export function loadData(): any {
     });
 }
 
-export function deleteData(id: Int16Array) {
-    const allData = JSON.parse(localStorage.getItem('data') || '{}');
-    const filteredData: BaseModel[] = [];
-    allData.forEach((element: BaseModel) => {
-        if (element.id != id) filteredData.push(element);
-    });
-    localStorage.data = JSON.stringify(filteredData);
+export function deleteData(base_model: BaseModel) {
+
 }
 
-export function updateData(id: Int16Array, updatedRecord: BaseModel) {
-    deleteData(id);
-    saveData(updatedRecord);
-    location.reload();
+export function updateData(base_model: BaseModel) {
+
 }

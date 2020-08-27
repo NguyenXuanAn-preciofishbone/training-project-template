@@ -1,7 +1,10 @@
 import ready from '../utilities/_helper';
 import renderGrid from '../components/_grid';
+import "../components/_form"
+import "../components/_navigation"
+import "../components/_header"
 import { loadData } from '../service/_database-service'
-import { BaseModel } from '../model/_base-model'
+import { DataFileMetaData } from '../model/_DataFileMetaData'
 
 ready(() => {
     if (!sessionStorage.filePath) {
@@ -9,11 +12,8 @@ ready(() => {
     }
     const filePath = sessionStorage.filePath;
 
-    var headerFilePath = <HTMLElement>document.getElementById('headerFilePath');
-    headerFilePath.innerHTML = filePath;
-
-    const data = loadData()
-        .then((data: BaseModel[]) => {
+    loadData()
+        .then((data: DataFileMetaData[]) => {
             renderGrid(data);
         });
 });

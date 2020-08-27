@@ -15,19 +15,19 @@
 	<nav class="navbar navbar-expand-md navbar-light bg-light">
 		<a class="navbar-brand" href="#"></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link" href="#">
+					<a class="nav-link" href="#" id="btnNew">
 						<i class="ms-Icon ms-Icon--CalculatorAddition"></i>New
 						<i class="ms-Icon ms-Icon--ChevronDown"></i>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">
+					<a class="nav-link" href="#" id="btnUpload">
 						<i class="ms-Icon ms-Icon--Upload"></i>Upload
 						<i class="ms-Icon ms-Icon--ChevronDown"></i>
 					</a>
@@ -56,8 +56,8 @@
 		</div>
 	</nav>
 
+	<!-- Header -->
 	<header>
-		<!-- Modal -->
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col">
@@ -69,9 +69,6 @@
 				<div class="col">
 					<button type="button" class="btn btn-success" id="btnBack">
 						Back
-					</button>
-					<button type="button" class="btn btn-danger" id="btnAdd">
-						Add
 					</button>
 				</div>
 			</div>
@@ -96,43 +93,26 @@
 					</tr>
 				</thead>
 				<tbody id="table">
-
 				</tbody>
 			</table>
 		</div>
 	</section>
 
-	<!--Popup Form-->
-	<div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-		aria-hidden="true">
+	<!-- Popup Form-->
+	<div class="modal fade" id="Form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		 aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header border-bottom-0">
-					<h5 class="modal-title" id="exampleModalLabel">Create new File/ Folder</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Upload File</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form>
-					<div class="modal-body">
-						<div class="form-group">
-							<label for="tfType">Type</label>
-							<select name="types" class="form-control" id="tfType">
-								<option value="file">File</option>
-								<option value="folder">Folder</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="tfName">Name</label>
-							<input type="text" class="form-control" id="tfName" placeholder="Object Name">
-						</div>
-						<div class="form-group">
-							<label for="tfModified">Modified</label>
-							<input type="text" class="form-control" id="tfModified" placeholder="Object Date Create">
-						</div>
-						<div class="form-group">
-							<label for="tfModifiedBy">Modified By</label>
-							<input type="text" class="form-control" id="tfModifiedBy" placeholder="Object Author">
+				<form method="post" enctype="multipart/form-data">
+					<div class="form-group">
+						<div class="col-md-10">
+							<input id="fileItem" class="form-control" type="file" accept="txt" />
 						</div>
 					</div>
 					<div class="modal-footer border-top-0 d-flex justify-content-center">
@@ -145,15 +125,13 @@
 
 	<!-- Scripts -->
 	<script src="js/home-page.js"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
+	<script src="js/jquery-3.5.1.js"</script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-		crossorigin="anonymous"></script>
+			integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+			crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-		crossorigin="anonymous"></script>
+			integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+			crossorigin="anonymous"></script>
 </body>
 
 </html>

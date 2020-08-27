@@ -1,6 +1,16 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\ASPNetCoreAssignment",
+    "\\ASPNetCoreAssignment\\ASPNetCoreAssignment",
+    "\\ASPNetCoreAssignment\\ASPNetCoreAssignment\\wwwroot",
+    "\\ASPNetCoreAssignment\\ASPNetCoreAssignment\\wwwroot\\js",
+    "\\src",
+    "\\src\\scripts",
+    "\\src\\scripts\\components",
+    "\\src\\scripts\\model",
+    "\\src\\scripts\\service",
+    "\\src\\scripts\\utilities"
   ],
   "PreviewInSolutionExplorer": false
 }

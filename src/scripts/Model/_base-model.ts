@@ -1,29 +1,30 @@
 export class BaseModel {
-  id: Int16Array;
 
-  type: string;
+    name: string;
 
-  name: string;
+    modified: number;
 
-  dateModified: string;
+    modifiedBy: string;
 
-  modifiedBy: string;
+    type: string;
 
-  path: string;
+    path: string;
 
-  constructor(
-    id: Int16Array,
-    type: string,
-    name: string,
-    modified: string,
-    modifiedBy: string,
-    path: string,
-  ) {
-    this.id = id;
-    this.type = type;
-    this.name = name;
-    this.dateModified = modified;
-    this.modifiedBy = modifiedBy;
-    this.path = path;
-  }
+    fileData: any;
+
+    constructor(
+        name: string,
+        modified: number,
+        modifiedBy: string,
+        type: string,
+        path: string,
+        fileData: any
+    ) {
+        this.name = name;
+        this.modified = modified;
+        this.modifiedBy = modifiedBy;
+        this.type = type;
+        this.path = path;
+        this.fileData = fileData;
+    }
 }

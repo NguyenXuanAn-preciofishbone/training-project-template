@@ -86,6 +86,45 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/scripts/components/_form.ts":
+/*!*****************************************!*\
+  !*** ./src/scripts/components/_form.ts ***!
+  \*****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _service_database_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../service/_database-service */ "./src/scripts/service/_database-service.ts");
+
+var currentFormData;
+
+function submit(event) {
+  event.preventDefault();
+
+  if (currentFormData != null) {
+    Object(_service_database_service__WEBPACK_IMPORTED_MODULE_0__["saveData"])(currentFormData);
+  } else {
+    console.log("No file inputed");
+  }
+}
+
+var btnSubmit = document.getElementById('btnSubmit');
+btnSubmit === null || btnSubmit === void 0 ? void 0 : btnSubmit.addEventListener('click', submit);
+var inputFile = document.getElementById("fileItem");
+
+inputFile.onchange = function (event) {
+  var fileList = inputFile.files;
+
+  if (fileList != null) {
+    var formData = new FormData();
+    formData.append('dataFile', fileList[0]);
+    currentFormData = formData;
+  }
+};
+
+/***/ }),
+
 /***/ "./src/scripts/components/_grid.ts":
 /*!*****************************************!*\
   !*** ./src/scripts/components/_grid.ts ***!
@@ -95,139 +134,112 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _service_database_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../service/_database-service */ "./src/scripts/service/_database-service.ts");
-/* harmony import */ var _model_base_model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../model/_base-model */ "./src/scripts/model/_base-model.ts");
+function updateData() {}
 
-
-
+function deleteData() {}
 
 var renderGrid = function (data) {
   // TODO: implement code to Render grid
   var table = document.getElementById('table');
   data.forEach(function (element) {
-    if (element.type == "folder") {
-      var tableRow = "\n            <tr class=\"folderRecord\" data-name=\"" + element.name + "\">\n                <td class=\"text-right\">\n                    <i class=\"ms-Icon ms-Icon--FabricFolder\"></i>\n                </td>\n                <td>" + element.name + "</td>\n                <td>" + element.dateModified + "</td>\n                <td>" + element.modifiedBy + "</td>\n                <td>\n                    <button class=\"updateButton\" data-id=\"" + element.id + "\">update</button>\n                    <button class=\"deleteButton\" data-id=\"" + element.id + "\">delete</button>\n                </td>\n            </tr>\n            ";
-      table.innerHTML += tableRow;
-    } else {
-      var tableRow = "\n            <tr>\n                <td class=\"text-right\">\n                    <i class=\"ms-Icon ms-Icon--OpenFile\"></i>\n                </td>\n                <td>" + element.name + "</td>\n                <td>" + element.dateModified + "</td>\n                <td>" + element.modifiedBy + "</td>\n                <td>\n                    <button class=\"updateButton\" data-id=\"" + element.id + "\">update</button>\n                    <button class=\"deleteButton\" data-id=\"" + element.id + "\">delete</button>\n                </td>\n            </tr>\n        ";
-      table.innerHTML += tableRow;
-    }
-  });
-  $('.updateButton').click(function (event) {
-    $('#form').modal('show');
-    Object(_service_database_service__WEBPACK_IMPORTED_MODULE_0__["deleteData"])($(this).data('id'));
-  });
-  $('.deleteButton').click(function (event) {
-    Object(_service_database_service__WEBPACK_IMPORTED_MODULE_0__["deleteData"])($(this).data('id'));
-    event.stopPropagation();
-    location.reload();
-  });
-  $('.folderRecord').click(function (event) {
-    sessionStorage.filePath += $(this).data('name') + "/";
-    console.log('folder clicked');
-    console.log(sessionStorage.filePath);
-    location.reload();
-  });
-  $('#tfType').change(function (event) {
-    console.log('type changed');
-  });
+    // if (element.type == "folder") {
+    //     const tableRow = `
+    //     <tr class="folderRecord" data-name="${element.name}">
+    //         <td class="text-right">
+    //             <i class="ms-Icon ms-Icon--FabricFolder"></i>
+    //         </td>
+    //         <td>${element.name}</td>
+    //         <td>${element.modified}</td>
+    //         <td>${element.modifiedBy}</td>
+    //         <td>
+    //             <button class="updateButton" data-id="${element.id}">update</button>
+    //             <button class="deleteButton" data-id="${element.id}">delete</button>
+    //         </td>
+    //     </tr>
+    //     `;
+    //     table.innerHTML += tableRow;
+    // } else {
+    var tableRow = "\n            <tr>\n                <td class=\"text-right\">\n                    <i class=\"ms-Icon ms-Icon--OpenFile\"></i>\n                </td>\n                <td>" + element.name + "</td>\n                <td>" + element.dateModified + "</td>\n                <td>" + element.createdBy + "</td>\n                <td>\n                    <button class=\"updateButton\" data-id=\"" + element.id + "\">update</button>\n                    <button class=\"deleteButton\" data-id=\"" + element.id + "\">delete</button>\n                </td>\n            </tr>\n        ";
+    table.innerHTML += tableRow;
+  }); // })
+  // $('.updateButton').click(function (event) {
+  //     $('#form').modal('show');
+  //     deleteData(($(this).data('id'));)
+  // })
+  // $('.deleteButton').click(function (event) {
+  //     deleteData($(this).data('id'));
+  //     event.stopPropagation();
+  //     location.reload();
+  // })
+  // $('.folderRecord').click(function (event) {
+  //     sessionStorage.filePath += $(this).data('name') + "/";
+  //     console.log('folder clicked');
+  //     console.log(sessionStorage.filePath);
+  //     location.reload();
+  // })
 };
 
-function validateInput(type, name, modified, modifiedBy) {
-  if (type === '' || name === '' || modified === '' || modifiedBy === '') {
-    console.log('Please input all required field');
-    return false;
-  }
-
-  console.log('Input validated');
-  return true;
-}
-
-function optionSelected() {
-  console.log("hello world");
-}
-
-function callAddForm() {
-  $('#form').modal('show');
-}
-
-function submit() {
-  var path = sessionStorage.filePath;
-  var tfType = $('#tfType').val();
-  var tfName = $('#tfName').val();
-  var tfModified = $('#tfModified').val();
-  var tfModifiedBy = $('#tfModifiedBy').val();
-
-  if (!localStorage.id) {
-    localStorage.id = 0;
-  } else {
-    localStorage.id += 1;
-  }
-
-  var id = localStorage.id;
-
-  if (validateInput(tfType, tfName, tfModified, tfModifiedBy)) {
-    var created = new _model_base_model__WEBPACK_IMPORTED_MODULE_1__["BaseModel"](id, tfType, tfName, tfModified, tfModifiedBy, path);
-    Object(_service_database_service__WEBPACK_IMPORTED_MODULE_0__["saveData"])(created);
-  }
-}
-
-function pathBack() {
-  if (sessionStorage.filePath != "./") {
-    var filePath = sessionStorage.filePath;
-    var splited = filePath.split("/");
-    var newFilePath = "";
-
-    for (var i = 0; i < splited.length - 2; i++) {
-      newFilePath += splited[i];
-      newFilePath += "/";
-    }
-
-    sessionStorage.filePath = newFilePath;
-    console.log(sessionStorage.filePath);
-  } else {
-    console.log("At root");
-  }
-
-  location.reload();
-}
-
-var btnSubmit = document.getElementById('btnSubmit');
-btnSubmit === null || btnSubmit === void 0 ? void 0 : btnSubmit.addEventListener('click', submit);
-var btnAdd = document.getElementById('btnAdd');
-btnAdd === null || btnAdd === void 0 ? void 0 : btnAdd.addEventListener('click', callAddForm);
-var btnBack = document.getElementById('btnBack');
-btnBack === null || btnBack === void 0 ? void 0 : btnBack.addEventListener('click', pathBack);
 /* harmony default export */ __webpack_exports__["default"] = (renderGrid);
 
 /***/ }),
 
-/***/ "./src/scripts/model/_base-model.ts":
-/*!******************************************!*\
-  !*** ./src/scripts/model/_base-model.ts ***!
-  \******************************************/
-/*! exports provided: BaseModel */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./src/scripts/components/_header.ts":
+/*!*******************************************!*\
+  !*** ./src/scripts/components/_header.ts ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BaseModel", function() { return BaseModel; });
-var BaseModel =
-/** @class */
-function () {
-  function BaseModel(id, type, name, modified, modifiedBy, path) {
-    this.id = id;
-    this.type = type;
-    this.name = name;
-    this.dateModified = modified;
-    this.modifiedBy = modifiedBy;
-    this.path = path;
-  }
-
-  return BaseModel;
-}();
 
 
+function pathBack() {
+  //if (sessionStorage.filePath != "./") {
+  //    let filePath: string = sessionStorage.filePath;
+  //    let splited: string[] = filePath.split("/");
+  //    let newFilePath: string = "";
+  //    for (let i = 0; i < splited.length - 2; i++) {
+  //        newFilePath += splited[i];
+  //        newFilePath += "/";
+  //    }
+  //    sessionStorage.filePath = newFilePath;
+  //    console.log(sessionStorage.filePath);
+  //} else {
+  //    console.log("At root");
+  //}
+  //location.reload();
+  console.log("Back");
+}
+
+var headerFilePath = document.getElementById('headerFilePath');
+headerFilePath.innerHTML = sessionStorage.filePath;
+var btnBack = document.getElementById('btnBack');
+btnBack === null || btnBack === void 0 ? void 0 : btnBack.addEventListener('click', pathBack);
+
+/***/ }),
+
+/***/ "./src/scripts/components/_navigation.ts":
+/*!***********************************************!*\
+  !*** ./src/scripts/components/_navigation.ts ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function callNewForm() {
+  console.log("New");
+}
+
+function callUploadForm() {
+  $('#Form').modal('show');
+}
+
+var btnNew = document.getElementById("btnNew");
+btnNew === null || btnNew === void 0 ? void 0 : btnNew.addEventListener('click', callNewForm);
+var btnUpload = document.getElementById("btnUpload");
+btnUpload === null || btnUpload === void 0 ? void 0 : btnUpload.addEventListener('click', callUploadForm);
 
 /***/ }),
 
@@ -242,7 +254,15 @@ function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utilities_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utilities/_helper */ "./src/scripts/utilities/_helper.ts");
 /* harmony import */ var _components_grid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_grid */ "./src/scripts/components/_grid.ts");
-/* harmony import */ var _service_database_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../service/_database-service */ "./src/scripts/service/_database-service.ts");
+/* harmony import */ var _components_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/_form */ "./src/scripts/components/_form.ts");
+/* harmony import */ var _components_navigation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/_navigation */ "./src/scripts/components/_navigation.ts");
+/* harmony import */ var _components_navigation__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_navigation__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/_header */ "./src/scripts/components/_header.ts");
+/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_header__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _service_database_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../service/_database-service */ "./src/scripts/service/_database-service.ts");
+
+
+
 
 
 
@@ -252,9 +272,7 @@ Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(function () {
   }
 
   var filePath = sessionStorage.filePath;
-  var headerFilePath = document.getElementById('headerFilePath');
-  headerFilePath.innerHTML = filePath;
-  var data = Object(_service_database_service__WEBPACK_IMPORTED_MODULE_2__["loadData"])().then(function (data) {
+  Object(_service_database_service__WEBPACK_IMPORTED_MODULE_5__["loadData"])().then(function (data) {
     Object(_components_grid__WEBPACK_IMPORTED_MODULE_1__["default"])(data);
   });
 });
@@ -274,41 +292,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadData", function() { return loadData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteData", function() { return deleteData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateData", function() { return updateData; });
-function saveData(basemodel) {
-  if (localStorage.data) {
-    var currentData = JSON.parse(localStorage.getItem('data') || '{}');
-    currentData.push(basemodel);
-    localStorage.data = JSON.stringify(currentData);
-  } else {
-    var dataArray = [];
-    dataArray[0] = basemodel;
-    localStorage.data = JSON.stringify(dataArray);
-  }
+/* harmony import */ var _utilities_route__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utilities/_route */ "./src/scripts/utilities/_route.ts");
 
-  console.log('Success saved data to local storage');
+
+function saveData(currentFormData) {
+  console.log(currentFormData);
+  console.log("at save data");
+  $.ajax({
+    url: _utilities_route__WEBPACK_IMPORTED_MODULE_0__["UPLOAD_PATH"],
+    type: 'POST',
+    data: currentFormData,
+    processData: false,
+    contentType: false,
+    success: function (result) {
+      console.log(result);
+    }
+  });
 }
 function loadData() {
   return new Promise(function (resolve, reject) {
-    fetch("https://localhost:44347/api/files").then(function (response) {
+    fetch(_utilities_route__WEBPACK_IMPORTED_MODULE_0__["GET_PATH"]).then(function (response) {
       return response.json();
     }).then(function (data) {
       resolve(data);
     });
   });
 }
-function deleteData(id) {
-  var allData = JSON.parse(localStorage.getItem('data') || '{}');
-  var filteredData = [];
-  allData.forEach(function (element) {
-    if (element.id != id) filteredData.push(element);
-  });
-  localStorage.data = JSON.stringify(filteredData);
-}
-function updateData(id, updatedRecord) {
-  deleteData(id);
-  saveData(updatedRecord);
-  location.reload();
-}
+function deleteData(base_model) {}
+function updateData(base_model) {}
 
 /***/ }),
 
@@ -330,6 +341,26 @@ var ready = function (fn) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (ready);
+
+/***/ }),
+
+/***/ "./src/scripts/utilities/_route.ts":
+/*!*****************************************!*\
+  !*** ./src/scripts/utilities/_route.ts ***!
+  \*****************************************/
+/*! exports provided: GET_PATH, POST_PATH, PUT_PATH, UPLOAD_PATH */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_PATH", function() { return GET_PATH; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "POST_PATH", function() { return POST_PATH; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PUT_PATH", function() { return PUT_PATH; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPLOAD_PATH", function() { return UPLOAD_PATH; });
+var GET_PATH = "https://localhost:44395/api/datafile";
+var POST_PATH = "";
+var PUT_PATH = "";
+var UPLOAD_PATH = "https://localhost:44395/api/datafile/upload";
 
 /***/ }),
 
