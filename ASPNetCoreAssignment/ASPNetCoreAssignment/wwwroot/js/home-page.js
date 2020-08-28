@@ -157,7 +157,7 @@ var renderGrid = function (data) {
     //     `;
     //     table.innerHTML += tableRow;
     // } else {
-    var tableRow = "\n            <tr>\n                <td class=\"text-right\">\n                    <i class=\"ms-Icon ms-Icon--OpenFile\"></i>\n                </td>\n                <td>" + element.name + "</td>\n                <td>" + element.dateModified + "</td>\n                <td>" + element.createdBy + "</td>\n                <td>\n                    <button class=\"updateButton\" data-id=\"" + element.id + "\">update</button>\n                    <button class=\"deleteButton\" data-id=\"" + element.id + "\">delete</button>\n                </td>\n            </tr>\n        ";
+    var tableRow = "\n            <tr>\n                <td class=\"text-right\">\n                    <i class=\"ms-Icon ms-Icon--OpenFile\"></i>\n                </td>\n                <td><a href=\"https://localhost:44395/api/datafile/download/" + element.id + "\">" + element.name + "</a></td>\n                <td>" + element.dateModified + "</td>\n                <td>" + element.createdBy + "</td>\n                <td>\n                    <button class=\"updateButton\" data-id=\"" + element.id + "\">update</button>\n                    <button class=\"deleteButton\" data-id=\"" + element.id + "\">delete</button>\n                </td>\n            </tr>\n        ";
     table.innerHTML += tableRow;
   }); // })
   // $('.updateButton').click(function (event) {
@@ -346,7 +346,7 @@ var ready = function (fn) {
 /*!*****************************************!*\
   !*** ./src/scripts/utilities/_route.ts ***!
   \*****************************************/
-/*! exports provided: GET_PATH, POST_PATH, PUT_PATH, UPLOAD_PATH */
+/*! exports provided: GET_PATH, POST_PATH, PUT_PATH, UPLOAD_PATH, DOWNLOAD_PATH */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -355,10 +355,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "POST_PATH", function() { return POST_PATH; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PUT_PATH", function() { return PUT_PATH; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPLOAD_PATH", function() { return UPLOAD_PATH; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DOWNLOAD_PATH", function() { return DOWNLOAD_PATH; });
 var GET_PATH = "https://localhost:44395/api/datafile";
 var POST_PATH = "";
 var PUT_PATH = "";
 var UPLOAD_PATH = "https://localhost:44395/api/datafile/upload";
+var DOWNLOAD_PATH = "https://localhost:44395/api/datafile/download";
 
 /***/ }),
 

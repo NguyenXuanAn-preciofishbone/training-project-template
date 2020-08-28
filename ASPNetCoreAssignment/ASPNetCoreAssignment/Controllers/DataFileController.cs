@@ -21,7 +21,6 @@ namespace ASPNetCoreAssignment.Controllers
             this._context = context;
         }
 
-        [Authorize]
         [HttpPost, Route("upload")]
         public string Upload(IFormFile dataFile)
         {
@@ -42,17 +41,18 @@ namespace ASPNetCoreAssignment.Controllers
             }
 
             return "success";
-        }
+        } 
 
-        [HttpGet, Route("download")]
+        [HttpGet, Route("download/{id}")]
         public IActionResult Download(long id)
         {
-            byte[] test = null;
-            string contentType = "";
+            DataFile selectedFile = this._context.DataFile.ToList().Find(p => p.id == id);
+            Console.WriteLine(selectedFile.name);
+            byte[] fileContent = selectedFile.content;
+            string fileType = selectedFile.type;
+            string fileName = selectedFile.name;
 
-
-
-            return File(test,contentType);
+            return File(fileContent, fileType,fileName);
         }
 
         [HttpGet]

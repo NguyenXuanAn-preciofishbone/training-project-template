@@ -35,7 +35,7 @@ const renderGrid = (data: DataFileMetaData[]) => {
                 <td class="text-right">
                     <i class="ms-Icon ms-Icon--OpenFile"></i>
                 </td>
-                <td>${element.name}</td>
+                <td><a href="https://localhost:44395/api/datafile/download/${element.id}">${element.name}</a></td>
                 <td>${element.dateModified}</td>
                 <td>${element.createdBy}</td>
                 <td>
