@@ -1,5 +1,5 @@
 import { BaseModel } from '../model/_base-model';
-import { UPLOAD_PATH } from '../utilities/_route'
+import { UPLOAD_PATH, DELETE_PATH, PUT_PATH } from '../utilities/_route'
 import { GET_PATH } from '../utilities/_route'
 
 export function saveData(currentFormData: FormData) {
@@ -30,10 +30,29 @@ export function loadData(): any {
     });
 }
 
-export function deleteData(base_model: BaseModel) {
-
+export function deleteData(id:number) {
+    console.log('in delete data function');
+    $.ajax({
+        url: DELETE_PATH + id,
+        type: 'DELETE',
+        processData: false,
+        contentType: false,
+        success: function (result) {
+            console.log(result);
+        }
+    });
 }
 
-export function updateData(base_model: BaseModel) {
+export function updateData(id:number, name: string) {
+    console.log('in update data function');
+    console.log(id);
+    console.log(name);
 
+    $.ajax({
+        url: PUT_PATH + id + "/" + name,
+        type: 'PUT',
+        success: function(result) {
+            console.log(result);
+        }
+      });
 }

@@ -99,7 +99,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var currentFormData;
 
-function submit(event) {
+function submitUpload(event) {
+  console.log("upload submit button clicked");
+
   if (currentFormData != null) {
     Object(_service_database_service__WEBPACK_IMPORTED_MODULE_0__["saveData"])(currentFormData);
   } else {
@@ -107,8 +109,18 @@ function submit(event) {
   }
 }
 
-var btnSubmit = document.getElementById('btnSubmit');
-btnSubmit === null || btnSubmit === void 0 ? void 0 : btnSubmit.addEventListener('click', submit);
+function submitUpdate(event) {
+  console.log("update submit button clicked");
+  var tfNewFileName = document.getElementById("newFileName");
+  var newName = tfNewFileName.value;
+  var id = parseInt($('#updateForm').attr('data-id'));
+  Object(_service_database_service__WEBPACK_IMPORTED_MODULE_0__["updateData"])(id, newName);
+}
+
+var btnUploadSubmit = document.getElementById('btnUploadSubmit');
+btnUploadSubmit === null || btnUploadSubmit === void 0 ? void 0 : btnUploadSubmit.addEventListener('click', submitUpload);
+var btnUpdateSubmit = document.getElementById("btnUpdateSubmit");
+btnUpdateSubmit === null || btnUpdateSubmit === void 0 ? void 0 : btnUpdateSubmit.addEventListener('click', submitUpdate);
 var inputFile = document.getElementById("fileItem");
 
 inputFile.onchange = function (event) {
@@ -132,9 +144,8 @@ inputFile.onchange = function (event) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function updateData() {}
+/* harmony import */ var _service_database_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../service/_database-service */ "./src/scripts/service/_database-service.ts");
 
-function deleteData() {}
 
 var renderGrid = function (data) {
   // TODO: implement code to Render grid
@@ -157,23 +168,21 @@ var renderGrid = function (data) {
     //     `;
     //     table.innerHTML += tableRow;
     // } else {
-    var tableRow = "\n            <tr>\n                <td class=\"text-right\">\n                    <i class=\"ms-Icon ms-Icon--OpenFile\"></i>\n                </td>\n                <td><a href=\"https://localhost:44395/api/datafile/download/" + element.id + "\">" + element.name + "</a></td>\n                <td>" + element.dateModified + "</td>\n                <td>" + element.createdBy + "</td>\n                <td>\n                    <button class=\"updateButton\" data-id=\"" + element.id + "\">update</button>\n                    <button class=\"deleteButton\" data-id=\"" + element.id + "\">delete</button>\n                </td>\n            </tr>\n        ";
+    var tableRow = "\n            <tr>\n                <td class=\"text-right\">\n                    <i class=\"ms-Icon ms-Icon--OpenFile\"></i>\n                </td>\n                <td><a href=\"https://localhost:44395/api/datafile/download/" + element.id + "\">" + element.name + "</a></td>\n                <td>" + element.dateModified + "</td>\n                <td>" + element.createdBy + "</td>\n                <td>\n                    <button class=\"updateButton\" data-id=\"" + element.id + "\" data-name=\"" + element.name + "\">update</button>\n                    <button class=\"deleteButton\" data-id=\"" + element.id + "\">delete</button>\n                </td>\n            </tr>\n        ";
     table.innerHTML += tableRow;
   }); // })
-  // $('.updateButton').click(function (event) {
-  //     $('#form').modal('show');
-  //     deleteData(($(this).data('id'));)
-  // })
-  // $('.deleteButton').click(function (event) {
-  //     deleteData($(this).data('id'));
-  //     event.stopPropagation();
-  //     location.reload();
-  // })
-  // $('.folderRecord').click(function (event) {
-  //     sessionStorage.filePath += $(this).data('name') + "/";
+
+  $('.updateButton').click(function () {
+    console.log('update button clicked');
+    $('#updateForm').attr('data-id', $(this).data('id'));
+    $('#updateForm').modal('show');
+  });
+  $('.deleteButton').click(function () {
+    console.log('delete button click');
+    Object(_service_database_service__WEBPACK_IMPORTED_MODULE_0__["deleteData"])($(this).data('id'));
+    location.reload();
+  }); // $('.folderRecord').click(function () {
   //     console.log('folder clicked');
-  //     console.log(sessionStorage.filePath);
-  //     location.reload();
   // })
 };
 
@@ -316,8 +325,30 @@ function loadData() {
     });
   });
 }
-function deleteData(base_model) {}
-function updateData(base_model) {}
+function deleteData(id) {
+  console.log('in delete data function');
+  $.ajax({
+    url: _utilities_route__WEBPACK_IMPORTED_MODULE_0__["DELETE_PATH"] + id,
+    type: 'DELETE',
+    processData: false,
+    contentType: false,
+    success: function (result) {
+      console.log(result);
+    }
+  });
+}
+function updateData(id, name) {
+  console.log('in update data function');
+  console.log(id);
+  console.log(name);
+  $.ajax({
+    url: _utilities_route__WEBPACK_IMPORTED_MODULE_0__["PUT_PATH"] + id + "/" + name,
+    type: 'PUT',
+    success: function (result) {
+      console.log(result);
+    }
+  });
+}
 
 /***/ }),
 
@@ -346,21 +377,21 @@ var ready = function (fn) {
 /*!*****************************************!*\
   !*** ./src/scripts/utilities/_route.ts ***!
   \*****************************************/
-/*! exports provided: GET_PATH, POST_PATH, PUT_PATH, UPLOAD_PATH, DOWNLOAD_PATH */
+/*! exports provided: GET_PATH, PUT_PATH, UPLOAD_PATH, DOWNLOAD_PATH, DELETE_PATH */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_PATH", function() { return GET_PATH; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "POST_PATH", function() { return POST_PATH; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PUT_PATH", function() { return PUT_PATH; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPLOAD_PATH", function() { return UPLOAD_PATH; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DOWNLOAD_PATH", function() { return DOWNLOAD_PATH; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_PATH", function() { return DELETE_PATH; });
 var GET_PATH = "https://localhost:44395/api/datafile";
-var POST_PATH = "";
-var PUT_PATH = "";
+var PUT_PATH = "https://localhost:44395/api/datafile/";
 var UPLOAD_PATH = "https://localhost:44395/api/datafile/upload";
 var DOWNLOAD_PATH = "https://localhost:44395/api/datafile/download";
+var DELETE_PATH = "https://localhost:44395/api/datafile/";
 
 /***/ }),
 

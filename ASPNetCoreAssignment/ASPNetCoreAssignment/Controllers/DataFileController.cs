@@ -40,8 +40,8 @@ namespace ASPNetCoreAssignment.Controllers
                 this._context.SaveChanges();
             }
 
-            return "success";
-        } 
+            return "create operation success";
+        }
 
         [HttpGet, Route("download/{id}")]
         public IActionResult Download(long id)
@@ -52,18 +52,43 @@ namespace ASPNetCoreAssignment.Controllers
             string fileType = selectedFile.type;
             string fileName = selectedFile.name;
 
-            return File(fileContent, fileType,fileName);
+            return File(fileContent, fileType, fileName);
         }
 
         [HttpGet]
         public List<DataFileMetaData> GetDataFile()
         {
-            return  _context.DataFile.Select(file => new DataFileMetaData() { 
+            return _context.DataFile.Select(file => new DataFileMetaData()
+            {
                 id = file.id,
                 name = file.name,
                 createdBy = file.createdBy,
                 dateModified = file.dateModified
             }).ToList();
+        }
+
+        [HttpDelete, Route("{id}")]
+        public string DeleteDataFile(long id)
+        {
+            var selectedFile = this._context.DataFile.Find(id);
+            if (selectedFile == null)
+            {
+                return "not found";
+            }
+            _context.DataFile.Remove(selectedFile);
+            _context.SaveChanges();
+            return "delete operation success";
+        }
+
+        [HttpPut("{id}/{newName}")]
+        public string UpdateDataFile(long id, string newName)
+        {
+            var editedFile = new DataFile() { id = id, name = newName };
+            this._context.DataFile.Attach(editedFile);
+            this._context.Entry(editedFile).Property(x => x.name).IsModified = true;
+            this._context.SaveChanges();
+
+            return editedFile.name;
         }
     }
 }

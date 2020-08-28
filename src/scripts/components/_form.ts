@@ -1,9 +1,11 @@
 import { BaseModel } from "../model/_base-model";
-import { saveData } from "../service/_database-service";
+import { saveData, updateData } from "../service/_database-service";
+import { identity } from "lodash";
 
 var currentFormData: FormData;
 
-function submit(event: Event) {
+function submitUpload(event: Event) {
+    console.log("upload submit button clicked");
     if (currentFormData != null) {
         saveData(currentFormData);
     }
@@ -12,8 +14,19 @@ function submit(event: Event) {
     }
 }
 
-const btnSubmit = document.getElementById('btnSubmit');
-btnSubmit?.addEventListener('click', submit);
+function submitUpdate(event: Event) {
+    console.log("update submit button clicked");
+    const tfNewFileName = <HTMLInputElement>document.getElementById("newFileName");
+    var newName: string = tfNewFileName.value;
+    var id = parseInt(<string>$('#updateForm').attr('data-id'));
+    updateData(id, newName);
+}
+
+const btnUploadSubmit = document.getElementById('btnUploadSubmit');
+btnUploadSubmit?.addEventListener('click', submitUpload);
+
+const btnUpdateSubmit = document.getElementById("btnUpdateSubmit");
+btnUpdateSubmit?.addEventListener('click', submitUpdate);
 
 const inputFile = <HTMLInputElement>document.getElementById("fileItem");
 inputFile.onchange = function (event) {
