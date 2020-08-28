@@ -21,11 +21,10 @@ namespace ASPNetCoreAssignment.Controllers
             this._context = context;
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost, Route("upload")]
         public string Upload(IFormFile dataFile)
         {
-            Console.WriteLine("Yay");
             using (var memoryStream = new MemoryStream())
             {
                 dataFile.CopyTo(memoryStream);

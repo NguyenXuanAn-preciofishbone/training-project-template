@@ -4,7 +4,6 @@ import { saveData } from "../service/_database-service";
 var currentFormData: FormData;
 
 function submit(event: Event) {
-    event.preventDefault();
     if (currentFormData != null) {
         saveData(currentFormData);
     }

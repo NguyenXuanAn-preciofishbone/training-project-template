@@ -100,8 +100,6 @@ __webpack_require__.r(__webpack_exports__);
 var currentFormData;
 
 function submit(event) {
-  event.preventDefault();
-
   if (currentFormData != null) {
     Object(_service_database_service__WEBPACK_IMPORTED_MODULE_0__["saveData"])(currentFormData);
   } else {

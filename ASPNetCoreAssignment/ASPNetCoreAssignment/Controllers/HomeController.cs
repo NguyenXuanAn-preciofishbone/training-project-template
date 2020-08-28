@@ -20,9 +20,10 @@ namespace ASPNetCoreAssignment.Controllers
             _logger = logger;
         }
 
-        //[Authorize]
+        [Authorize]
         public IActionResult Index()
         {
+            //throw new Exception("Some error yo");
             return File("~/index.html", "text/html");
         }
     }
