@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ASPNetCoreAssignment.Models;
+using ASPNetCoreAssignment.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,29 +16,29 @@ namespace ASPNetCoreAssignment.Controllers
     [ApiController]
     public class DataFileController : ControllerBase
     {
-        private TrainingAssignmentDbContext _context;
-        public DataFileController(TrainingAssignmentDbContext context)
+        private readonly IDataFileService _dataFileService;
+        public DataFileController(IDataFileService dataFileService)
         {
-            this._context = context;
+            this._dataFileService = dataFileService;
         }
 
         [HttpPost, Route("upload")]
-        public string Upload(IFormFile dataFile)
+        public string Upload(IFormFile dataFile) // ở client, hàm onChanrge của form add vào object FormData 1 key-value pair có key là "dataFile" nên buộc tên của object IFormFile này phải là dataFile để lấy được dữ liệu này
         {
             using (var memoryStream = new MemoryStream())
             {
                 dataFile.CopyTo(memoryStream);
                 var fileContent = memoryStream.ToArray();
 
-                this._context.DataFile.Add(new DataFile()
+                DataFile file = new DataFile
                 {
-                    content = fileContent,
-                    name = dataFile.FileName,
-                    createdBy = User.Identity.Name,
-                    dateModified = "Placeholder",
-                    type = dataFile.ContentType
-                });
-                this._context.SaveChanges();
+                    Content = fileContent,
+                    Name = dataFile.FileName,
+                    Type = dataFile.ContentType
+                };
+
+                _dataFileService.CreateDataFile(file);
+
             }
 
             return "create operation success";
@@ -46,49 +47,42 @@ namespace ASPNetCoreAssignment.Controllers
         [HttpGet, Route("download/{id}")]
         public IActionResult Download(long id)
         {
-            DataFile selectedFile = this._context.DataFile.ToList().Find(p => p.id == id);
-            Console.WriteLine(selectedFile.name);
-            byte[] fileContent = selectedFile.content;
-            string fileType = selectedFile.type;
-            string fileName = selectedFile.name;
+            DataFile dataFile = _dataFileService.GetDataFile(id);
+            byte[] fileContent = dataFile.Content;
+            string fileType = dataFile.Type;
+            string fileName = dataFile.Name;
 
             return File(fileContent, fileType, fileName);
         }
 
         [HttpGet]
-        public List<DataFileMetaData> GetDataFile()
+        public List<DataFileMetaData> GetListMetaData()
         {
-            return _context.DataFile.Select(file => new DataFileMetaData()
-            {
-                id = file.id,
-                name = file.name,
-                createdBy = file.createdBy,
-                dateModified = file.dateModified
-            }).ToList();
+            return _dataFileService.GetListMetaData();
         }
 
         [HttpDelete, Route("{id}")]
         public string DeleteDataFile(long id)
         {
-            var selectedFile = this._context.DataFile.Find(id);
-            if (selectedFile == null)
+            if (_dataFileService.DeleteDataFile(id))
             {
-                return "not found";
+                return "delete operation success";
             }
-            _context.DataFile.Remove(selectedFile);
-            _context.SaveChanges();
-            return "delete operation success";
+            else return "delete operation fail";
         }
 
         [HttpPut("{id}/{newName}")]
-        public string UpdateDataFile(long id, string newName)
+        public string UpdateMetaData(long id, string newName)
         {
-            var editedFile = new DataFile() { id = id, name = newName };
-            this._context.DataFile.Attach(editedFile);
-            this._context.Entry(editedFile).Property(x => x.name).IsModified = true;
-            this._context.SaveChanges();
+            DataFileMetaData dataFileMetaData = new DataFileMetaData
+            {
+                Id = id,
+                Name = newName
+            };
 
-            return editedFile.name;
+            if (_dataFileService.UpdateMetaData(dataFileMetaData)) return "update operation success";
+            else return "update operation fail";
+
         }
     }
 }

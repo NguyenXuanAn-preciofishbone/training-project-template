@@ -1,0 +1,15 @@
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Repositories\bin\Debug\netcoreapp3.1\ASPNetCoreAssignment.Models.dll
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Repositories\obj\Debug\netcoreapp3.1\ASPNetCoreAssignment.Repositories.csprojAssemblyReference.cache
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Repositories\obj\Debug\netcoreapp3.1\ASPNetCoreAssignment.Repositories.AssemblyInfoInputs.cache
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Repositories\obj\Debug\netcoreapp3.1\ASPNetCoreAssignment.Repositories.AssemblyInfo.cs
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Repositories\obj\Debug\netcoreapp3.1\ASPNetCoreAssignment.Repositories.csproj.CoreCompileInputs.cache
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Repositories\bin\Debug\netcoreapp3.1\ASPNetCoreAssignment.Repositories.deps.json
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Repositories\bin\Debug\netcoreapp3.1\ASPNetCoreAssignment.Repositories.runtimeconfig.json
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Repositories\bin\Debug\netcoreapp3.1\ASPNetCoreAssignment.Repositories.runtimeconfig.dev.json
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Repositories\bin\Debug\netcoreapp3.1\ASPNetCoreAssignment.Repositories.dll
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Repositories\bin\Debug\netcoreapp3.1\ASPNetCoreAssignment.Repositories.pdb
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Repositories\bin\Debug\netcoreapp3.1\ASPNetCoreAssignment.Models.pdb
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Repositories\obj\Debug\netcoreapp3.1\ASPNetCoreAssignment.Repositories.csproj.CopyComplete
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Repositories\obj\Debug\netcoreapp3.1\ASPNetCoreAssignment.Repositories.dll
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Repositories\obj\Debug\netcoreapp3.1\ASPNetCoreAssignment.Repositories.pdb
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Repositories\obj\Debug\netcoreapp3.1\ASPNetCoreAssignment.Repositories.genruntimeconfig.cache

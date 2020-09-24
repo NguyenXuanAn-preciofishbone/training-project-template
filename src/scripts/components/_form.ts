@@ -6,6 +6,7 @@ var currentFormData: FormData;
 
 function submitUpload(event: Event) {
     console.log("upload submit button clicked");
+    console.log(event);
     if (currentFormData != null) {
         saveData(currentFormData);
     }

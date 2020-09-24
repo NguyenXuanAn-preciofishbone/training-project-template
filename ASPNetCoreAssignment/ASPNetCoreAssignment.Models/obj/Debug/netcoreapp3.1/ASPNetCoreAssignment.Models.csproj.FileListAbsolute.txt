@@ -1,0 +1,9 @@
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Models\bin\Debug\netcoreapp3.1\ASPNetCoreAssignment.Models.deps.json
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Models\bin\Debug\netcoreapp3.1\ASPNetCoreAssignment.Models.dll
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Models\bin\Debug\netcoreapp3.1\ASPNetCoreAssignment.Models.pdb
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Models\obj\Debug\netcoreapp3.1\ASPNetCoreAssignment.Models.csprojAssemblyReference.cache
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Models\obj\Debug\netcoreapp3.1\ASPNetCoreAssignment.Models.AssemblyInfoInputs.cache
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Models\obj\Debug\netcoreapp3.1\ASPNetCoreAssignment.Models.AssemblyInfo.cs
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Models\obj\Debug\netcoreapp3.1\ASPNetCoreAssignment.Models.csproj.CoreCompileInputs.cache
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Models\obj\Debug\netcoreapp3.1\ASPNetCoreAssignment.Models.dll
+C:\Users\ann1\Documents\Code\training-project-template\ASPNetCoreAssignment\ASPNetCoreAssignment.Models\obj\Debug\netcoreapp3.1\ASPNetCoreAssignment.Models.pdb

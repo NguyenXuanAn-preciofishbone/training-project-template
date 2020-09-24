@@ -101,6 +101,7 @@ var currentFormData;
 
 function submitUpload(event) {
   console.log("upload submit button clicked");
+  console.log(event);
 
   if (currentFormData != null) {
     Object(_service_database_service__WEBPACK_IMPORTED_MODULE_0__["saveData"])(currentFormData);
@@ -389,7 +390,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_PATH", function() { return DELETE_PATH; });
 var GET_PATH = "https://localhost:44395/api/datafile";
 var PUT_PATH = "https://localhost:44395/api/datafile/";
-var UPLOAD_PATH = "https://localhost:44395/api/datafile/upload";
+var UPLOAD_PATH = "https://localhost:44395/api/datafileabc/upload";
 var DOWNLOAD_PATH = "https://localhost:44395/api/datafile/download";
 var DELETE_PATH = "https://localhost:44395/api/datafile/";
 

@@ -1,4 +1,5 @@
 ﻿using ASPNetCoreAssignment.Models;
+using ASPNetCoreAssignment.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -18,7 +19,7 @@ namespace ASPNetCoreAssignment.Middleware
             _next = next;
         }
         [Authorize]
-        public async Task Invoke(HttpContext context, TrainingAssignmentDbContext dbcontext)
+        public async Task Invoke(HttpContext context, IExceptionLogService exceptionLogService)
         {
             try
             {
@@ -26,13 +27,19 @@ namespace ASPNetCoreAssignment.Middleware
             }
             catch (Exception e)
             {
-                dbcontext.ExceptionLogs.Add(new ExceptionLog()
+                //dbcontext.ExceptionLogs.Add(new ExceptionLog()
+                //{
+                //    message = e.Message,
+                //    user = context.User.Identity.Name
+                //});
+                //dbcontext.SaveChanges();
+                exceptionLogService.CreateExeptionLog(new ExceptionLog()
                 {
-                    message = e.Message,
-                    user = context.User.Identity.Name
+                    Message = e.Message,
+                    User = context.User.Identity.Name
                 });
-                dbcontext.SaveChanges();
                 throw;
+                //throw e;
             }
         }
     }

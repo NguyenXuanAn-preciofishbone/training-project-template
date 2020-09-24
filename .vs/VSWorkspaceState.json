@@ -3,14 +3,10 @@
     "",
     "\\ASPNetCoreAssignment",
     "\\ASPNetCoreAssignment\\ASPNetCoreAssignment",
+    "\\ASPNetCoreAssignment\\ASPNetCoreAssignment\\Controllers",
     "\\ASPNetCoreAssignment\\ASPNetCoreAssignment\\wwwroot",
-    "\\ASPNetCoreAssignment\\ASPNetCoreAssignment\\wwwroot\\js",
-    "\\src",
-    "\\src\\scripts",
-    "\\src\\scripts\\components",
-    "\\src\\scripts\\model",
-    "\\src\\scripts\\service",
-    "\\src\\scripts\\utilities"
+    "\\ASPNetCoreAssignment\\ASPNetCoreAssignment\\wwwroot\\css"
   ],
+  "SelectedNode": "\\ASPNetCoreAssignment\\ASPNetCoreAssignment\\Controllers\\HomeController.cs",
   "PreviewInSolutionExplorer": false
 }
