@@ -1,2 +1,9 @@
 node_modules
 ASPNetCoreAssignment/ASPNetCoreAssignment/bin
+ASPNetCoreAssignment/ASPNetCoreAssignment/obj
+ASPNetCoreAssignment/ASPNetCoreAssignment.Models/bin
+ASPNetCoreAssignment/ASPNetCoreAssignment.Models/obj
+ASPNetCoreAssignment/ASPNetCoreAssignment.Repositories/bin
+ASPNetCoreAssignment/ASPNetCoreAssignment.Repositories/obj
+ASPNetCoreAssignment/ASPNetCoreAssignment.Services/bin
+ASPNetCoreAssignment/ASPNetCoreAssignment.Services/obj
